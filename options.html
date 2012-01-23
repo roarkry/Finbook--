@@ -1,0 +1,51 @@
+<html>
+<head><title>Finbook++ Options</title></head>
+<script type="text/javascript" src="fbpp_settings.js"></script>
+
+<body onload="restore_options()">
+
+<h1>Finbook++ Options</h1>
+<hr/>
+
+<form id="options">
+<h2>Auto Collapse Settings</h2>
+<input type="checkbox" name="fbpp_option" value="auto_plans" /> Automatically Collapse Plans / Expectations
+<br/>
+<input type="checkbox" name="fbpp_option" value="auto_goals" /> Automatically Collapse Goals
+<br/>
+<input type="checkbox" name="fbpp_option" value="auto_feedback" /> Automatically Collapse Feedback
+<hr/>
+
+<h2>Collapse Settings</h2>
+<input type="checkbox" name="fbpp_option" value="collapse_plan_desc" /> Collapse Plan Description
+<br/>
+<input type="checkbox" name="fbpp_option" value="collapse_plan_creator" /> Collapse Plan Creator
+<br/>
+<input type="checkbox" name="fbpp_option" value="collapse_goal_desc" /> Collapse Goal Description 
+<br/>
+<input type="checkbox" name="fbpp_option" value="collapse_goal_commentors" /> Collapse Goal Commentor Statuses (Poke)
+<br/>
+<input type="checkbox" name="fbpp_option" value="collapse_feedback_comment" /> Collapse Feedback Comment 
+<hr/>
+
+<h2>Order Settings</h2>
+<input type="checkbox" name="fbpp_option" value="reorder_plan_by_goal" /> Order Plans by goals (Descending dates)
+<hr/>
+
+<h2>Outline Settings</h2>
+<input type="checkbox" name="fbpp_option" value="outline_plans" /> Outline Plans / Expectations
+<br/>
+<input type="checkbox" name="fbpp_option" value="outline_goals" /> Outline Goals
+<br/>
+<input type="checkbox" name="fbpp_option" value="outline_feedback" /> Outline Feedback
+<hr/>
+</form>
+
+<button onclick="save_options()">Save</button>
+<span id="status" style="font-size:20px;color:red;"></span>
+</body>
+</html>
+
+<hr/>
+
+Questions or Suggestions? Email <a href="mailto:ryan.roark@parivedasolutions.com">Ryan Roark</a>.

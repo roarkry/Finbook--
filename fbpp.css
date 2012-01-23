@@ -1,0 +1,79 @@
+/* This CSS is used for the Show/Hide functionality. */
+
+.expand-plan:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #369;
+}
+.expand-goal:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #369;
+}
+.expand-feedback:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #369;
+}
+
+.expand-plan{
+  font-size:16px;
+  color: black;
+  text-docartion: none;
+  cursor: pointer; cursor: hand;
+  font-weight: bold;
+  font-style: normal;
+  position:relative;
+  top:-2px;
+  font-family: "Courier New";
+}
+
+.expand-goal{
+  font-size:14px;
+  color: black;
+  text-docartion: none;
+  cursor: pointer; cursor: hand;
+  font-weight: bold;
+  font-style: normal;
+  position:relative;
+  top:-2px;
+  font-family: "Courier New";
+}
+
+.expand-feedback{
+  font-size:12px;
+  color: black;
+  text-docartion: none;
+  cursor: pointer; cursor: hand;
+  font-weight: bold;
+  font-style: normal;
+  position:relative;
+  top:-2px;
+  font-family: "Courier New";
+}
+
+.expand-plan-summary{
+  font-size:16px;
+  color: grey;
+  text-docartion: none;
+  font-style: italic;
+  position:relative;
+  left:5px;
+}
+
+.expand-goal-summary{
+  font-size:14px;
+  color: grey;
+  text-docartion: none;
+  font-style: italic;
+  position:relative;
+  left:5px;
+}
+
+.expand-feedback-summary{
+  font-size:12px;
+  color: grey;
+  text-docartion: none;
+  font-style: italic;
+
+}
