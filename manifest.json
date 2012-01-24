@@ -8,7 +8,7 @@
   "content_scripts": [
     {
       "matches": ["*://finbook.parivedasolutions.com/Goals/Display/*"],
-      "js": ["jquery-1.7.1.js", "date.js", "fbpp_settings.js", "fbpp.js"],
+      "js": ["jquery-1.7.1.js", "date.js", "fbpp.js"],
       "css": ["fbpp.css"]
     }
   ]
