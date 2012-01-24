@@ -1,47 +1,36 @@
-var autoCollapsePlan = true;
-var autoCollapseGoal = true;
-var autoCollapseFeedback = true;
-
-var reorderByGoal = true;
 var hideGoalHeader = false;
-
-var collapsePlanDescription = true;
-var collapsePlanCreator = true;
-
-var collapseGoalDescription = true;
-var collapseGoalCommentors = true;
-
-var collapseFeedbackComment = true;
-
-var outlinePlan = false;
-var outlineGoals = false;
-var outlineGoal = false;
-var outlineFeedback = false;
 
 var planClass = ".plan-detail";
 var planGoalsClass = ".goal-detail-container";
 var goalClass = ".goal-detail.dotted-top-border";
 var feedbackClass = ".feedback-detail-padding";
 
-loadOptions();
+var options;
 
-function applyOptions(){
-  $(document).ready(function () {
-    
+$(document).ready(function () {
+  
+  /**
+   * read settings using fancy-settings  api
+   *
+   * @see https://github.com/frankkohlhepp/fancy-settings/wiki/Read-settings
+   */
+  chrome.extension.sendRequest({action: 'gpmeGetOptions'}, function(theOptions) {
+    options = theOptions;
+  
     //Display the outlines
-    if(outlinePlan)
+    if(options.outline_plans)
       $(planClass).css("border","3px solid grey");
     
-    if(outlineGoals)
+    if(options.outline_goals)
       $(planGoalsClass).css("border","3px solid grey");
     
-    if(outlineGoal)  
+    if(options.outline_goal)  
       $(goalClass).css("border","3px solid green");
     
-    if(outlineFeedback)
+    if(options.outline_feedback)
       $(feedbackClass).css("border","3px solid blue");
     
-    if(reorderByGoal){
+    if(options.reorder_plan_by_goal){
       var goalDates = {};
       var keys = Array();
 
@@ -67,19 +56,19 @@ function applyOptions(){
     
     $(feedbackClass).each(SetupFeedback);
     
-    if(autoCollapseFeedback){
+    if(options.auto_feedback){
       $(feedbackClass).each(ExpandFeedback);
     }
     
-    if(autoCollapseGoal){
+    if(options.auto_goals){
       $(goalClass).each(ExpandGoal);
     }
     
-    if(autoCollapsePlan){ 
+    if(options.auto_plans){ 
       $(planClass).each(ExpandPlan);
     }
   });
-}
+});
 
 /************Setup Functions**************/
 
@@ -131,15 +120,15 @@ function ExpandPlan(i){
   var plansElement = $(planClass)[i];
   
   var desc = $(plansElement).find(".plan-detail-expectation-description");
-  if (collapsePlanDescription && desc.length > 0)
+  if (options.collapse_plan_desc && desc.length > 0)
     ExpandElement(desc[0]);
   
   var desc = $(plansElement).find(".plan-detail-description");
-  if (collapsePlanDescription && desc.length > 0)
+  if (options.collapse_plan_desc && desc.length > 0)
     ExpandElement(desc[0]);
     
   desc = $(plansElement).find(".plan-detail-description-title");
-  if (collapsePlanCreator && desc.length > 0)
+  if (options.collapse_plan_creator && desc.length > 0)
     ExpandElement(desc[0]);
       
   desc = $(plansElement).find(".five-star-rating-control");
@@ -163,12 +152,12 @@ function ExpandGoal(i){
   ExpandButtonSwitch($(".expand-goal")[i], expanded);
   
   //hide all description elements
-  if(collapseGoalDescription)
+  if(options.collapse_goal_desc)
     $(element).children(".goal-detail-description").each(function(i){
       ExpandElement(this);
     });
   
-  if(collapseGoalCommentors)  
+  if(options.collapse_goal_commentors)  
     ExpandElement($(element).children(".goal-detail-description-heading")[1]);
   
 }
@@ -185,7 +174,7 @@ function ExpandFeedback(i){
     ExpandElement(desc[0]);
       
   desc = $(element).find(".feedback-detail-comment");
-  if (collapseFeedbackComment && desc.length > 0)
+  if (options.collapse_feedback_comment && desc.length > 0)
     ExpandElement(desc[0]);
   
   desc = $(element).find(".feedback-detail-creator");
@@ -200,11 +189,11 @@ function ExpandElement(element){
   var expanded = false;
   
   if(element.style.display == 'none'){
-    $(element).fadeIn(5);
+    $(element).fadeIn(200 /* options.fade_speed */);
     expanded = true;
   }
   else
-    $(element).fadeOut(5);
+    $(element).fadeOut(200 /* options.fade_speed */);
     
   return expanded;
 }
