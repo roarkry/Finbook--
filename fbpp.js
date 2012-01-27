@@ -1,5 +1,3 @@
-var hideGoalHeader = false;
-
 var planClass = ".plan-detail";
 var planGoalsClass = ".goal-detail-container";
 var goalClass = ".goal-detail.dotted-top-border";
@@ -16,6 +14,9 @@ $(document).ready(function () {
    */
   chrome.extension.sendRequest({action: 'gpmeGetOptions'}, function(theOptions) {
     options = theOptions;
+    
+    if(options.collapse_expand_all)
+      CollapseExpandAll();
   
     //Display the outlines
     if(options.outline_plans)
@@ -45,7 +46,7 @@ $(document).ready(function () {
     }
     
     //Hide the header for Goals - just says "goals"
-    if(hideGoalHeader)
+    if(options.hide_goal_header)
       $(".goal-detail-title").each(function (i){
         this.style.display = 'none';
       });
@@ -109,7 +110,26 @@ function SetupFeedback(i){
   shElement.addEventListener("click", function(){ExpandFeedback(i);}, false);
 }
 
+function CollapseExpandAll(){
+  var AllGoals = $(".goals-display-container")[0];
+  AllGoals.outerHTML = "<table><tr><td id='collapse-all' class='all collapse'>Collapse All</td><td id='expand-all' class='all expand'>Expand All</td></tr></table>" + AllGoals.outerHTML;
+  
+  var collapseDiv = $("#collapse-all");
+  var expandDiv = $("#expand-all");
+  
+  collapseDiv.click(CollapseAll);
+  expandDiv.click(ExpandAll);
+}
+
 /************Expand Functions**************/
+
+function CollapseAll(){
+  alert("Collapsing all not implemented!");
+}
+
+function ExpandAll(){
+  alert("Expanding all not implemented!");
+}
 
 function ExpandPlan(i){
   var expanded = ExpandElement($(planGoalsClass)[i]);
@@ -236,12 +256,8 @@ function SortTopLevel(mapping, dates){
   for(i=0; i<dates.length-1; i++){
     for(j=0; j<dates.length-1-i; j++){
       //Use date.js to parse and compare the dates
-      var j1 = j;
-      var j2 = j+1;
-      var d1Str = dates[j1];
-      var d2Str = dates[j2];
-      var d2 = Date.parse(d2Str);
-      var d1 = Date.parse(d1Str);
+      var d2 = Date.parse(dates[j+1]);
+      var d1 = Date.parse(dates[j]);
       
       
       //if the above section has an earlier date, swap them (< = descending | > = ascending

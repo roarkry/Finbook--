@@ -16,6 +16,24 @@
   background-color: #369;
 }
 
+.all{
+  font-size:16px;
+  color: black;
+  text-docartion: none;
+  cursor: pointer; cursor: hand;
+  font-weight: bold;
+  font-style: normal;
+  position:relative;
+  top:-2px;
+  font-family: "Courier New";
+}
+
+.all:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #369;
+}
+
 .expand-plan{
   font-size:16px;
   color: black;
