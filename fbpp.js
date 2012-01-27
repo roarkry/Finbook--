@@ -267,20 +267,3 @@ function SortTopLevel(mapping, dates){
     }
   }
 }
-
-/************Notes**************/
-/** TODO:
- - Clean up the options - make a dictionary or something similar (see the response type from background.html)
- - Clean up the CSS
- - Allow collapsing of CDP page
- - Provide option to hide the word goal
-*/
-/****************Version Log***************
-1.0 - 1/13/2012
-1.1 - 1/15/2012
-  * Poke functionality is now collapsable 
-  * JS isn't applied to the goal entry page (maybe i can apply some of the code though...)
-  * Sorting functionality for top-level added, based on goal creation date
-  * Hide plan-detail-expectation-description tag along with the plan/expectation description
-  * Hide multiple goal-description spans (not sure why they are there to begin with)
-/******************************************/
