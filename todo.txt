@@ -1,0 +1,5 @@
+TODO List
+ - Clean up the CSS
+ - Allow collapsing of CDP page
+ - Provide option to hide the word goal
+
