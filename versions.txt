@@ -5,3 +5,5 @@
   * Sorting functionality for top-level added, based on goal creation date
   * Hide plan-detail-expectation-description tag along with the plan/expectation description
   * Hide multiple goal-description spans (not sure why they are there to begin with)
+1.2 - 1/29/2012
+  * Fixed Goal date parsing - new Finbook roll out broke Date parsing functionaltiy
