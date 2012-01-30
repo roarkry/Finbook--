@@ -15,8 +15,8 @@ $(document).ready(function () {
   chrome.extension.sendRequest({action: 'gpmeGetOptions'}, function(theOptions) {
     options = theOptions;
     
-    if(options.collapse_expand_all)
-      CollapseExpandAll();
+    //if(options.collapse_expand_all)
+    //  CollapseExpandAll();
   
     //Display the outlines
     if(options.outline_plans)
@@ -37,7 +37,7 @@ $(document).ready(function () {
 
       $(planGoalsClass).each(function (i){
         //get the most recent goals date (as a string)
-        var x = $(this).find(".goal-detail-description-heading")[0].innerText;
+        var x = $(this).find(".goal-detail-description-heading")[0].innerText.split("Period")[0];
         keys.push(x);
         goalDates[x] = i;
       });

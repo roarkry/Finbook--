@@ -1,6 +1,6 @@
 {
   "name": "Finbook++",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Added Finbook Functionality",
   "icons": { "128": "icon_128.png" },
   "options_page": "fancy-settings/source/index.html",

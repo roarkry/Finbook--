@@ -5,13 +5,6 @@ this.manifest = {
     "settings": [
         {
             "tab": "Goals Page",
-            "group": "Collapse / Expand All",
-            "name": "collapse_expand_all",
-            "type": "checkbox",
-            "label": "Show Option to Collapse or Expand Everything on the page"
-        },
-        {
-            "tab": "Goals Page",
             "group": "Auto Collapse",
             "name": "auto_plans",
             "type": "checkbox",
