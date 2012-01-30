@@ -14,7 +14,7 @@ $(document).ready(function () {
    */
   chrome.extension.sendRequest({action: 'gpmeGetOptions'}, function(theOptions) {
     options = theOptions;
-    
+
     //if(options.collapse_expand_all)
     //  CollapseExpandAll();
   
