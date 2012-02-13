@@ -15,8 +15,8 @@ $(document).ready(function () {
   chrome.extension.sendRequest({action: 'gpmeGetOptions'}, function(theOptions) {
     options = theOptions;
     
-    //if(options.collapse_expand_all)
-    //  CollapseExpandAll();
+    if(options.collapse_expand_all)
+      SetupCollapseExpandAll();
   
     //Display the outlines
     if(options.outline_plans)
@@ -34,10 +34,15 @@ $(document).ready(function () {
     if(options.reorder_plan_by_goal){
       var goalDates = {};
       var keys = Array();
+      
+      //append this to each date we recieve.  
+      //In case two goals were created at the same time (for different plans)
+      //This will keep them from colliding in the goalDates object
+      var count = 0;
 
       $(planGoalsClass).each(function (i){
         //get the most recent goals date (as a string)
-        var x = $(this).find(".goal-detail-description-heading")[0].innerText.split("Period")[0];
+        var x = $(this).find(".goal-detail-description-heading")[0].innerText.split("Period")[0] + (count++);
         keys.push(x);
         goalDates[x] = i;
       });
@@ -58,15 +63,15 @@ $(document).ready(function () {
     $(feedbackClass).each(SetupFeedback);
     
     if(options.auto_feedback){
-      $(feedbackClass).each(ExpandFeedback);
+      $(feedbackClass).each(function(i){ExpandFeedback(i)});
     }
     
     if(options.auto_goals){
-      $(goalClass).each(ExpandGoal);
+      $(goalClass).each(function(i){ExpandGoal(i)});
     }
     
     if(options.auto_plans){ 
-      $(planClass).each(ExpandPlan);
+      $(planClass).each(function(i){ExpandPlan(i)});
     }
   });
 });
@@ -110,7 +115,7 @@ function SetupFeedback(i){
   shElement.addEventListener("click", function(){ExpandFeedback(i);}, false);
 }
 
-function CollapseExpandAll(){
+function SetupCollapseExpandAll(){
   var AllGoals = $(".goals-display-container")[0];
   AllGoals.outerHTML = "<table><tr><td id='collapse-all' class='all collapse'>Collapse All</td><td id='expand-all' class='all expand'>Expand All</td></tr></table>" + AllGoals.outerHTML;
   
@@ -124,11 +129,49 @@ function CollapseExpandAll(){
 /************Expand Functions**************/
 
 function CollapseAll(){
-  alert("Collapsing all not implemented!");
+  $(planClass).each(
+    function(i){
+      if(ExpandPlan(i) == true)
+        ExpandPlan(i);
+    }
+  );
+    
+  $(goalClass).each(
+    function(i){
+      if(ExpandGoal(i) == true)
+        ExpandGoal(i);
+    }
+  );
+  
+  $(feedbackClass).each(
+    function(i){
+      if(ExpandFeedback(i) == true)
+        ExpandFeedback(i);
+    }
+  );
 }
 
 function ExpandAll(){
-  alert("Expanding all not implemented!");
+  $(planClass).each(
+    function(i){
+      if(ExpandPlan(i) == false)
+        ExpandPlan(i);
+    }
+  );
+    
+  $(goalClass).each(
+    function(i){
+      if(ExpandGoal(i) == false)
+        ExpandGoal(i);
+    }
+  );
+  
+  $(feedbackClass).each(
+    function(i){
+      if(ExpandFeedback(i) == false)
+        ExpandFeedback(i);
+    }
+  );
 }
 
 function ExpandPlan(i){
@@ -155,7 +198,7 @@ function ExpandPlan(i){
   if (desc.length > 0)
     ExpandElement(desc[0]);
   
-  
+  return expanded;
 }
 
 function ExpandGoal(i){
@@ -180,6 +223,7 @@ function ExpandGoal(i){
   if(options.collapse_goal_commentors)  
     ExpandElement($(element).children(".goal-detail-description-heading")[1]);
   
+  return expanded;
 }
 
 function ExpandFeedback(i){  
@@ -201,6 +245,7 @@ function ExpandFeedback(i){
   if (desc.length > 0)
     ExpandElement(desc[0]);
   
+  return expanded;
 }
 
 /************Helper Functions**************/
@@ -256,9 +301,8 @@ function SortTopLevel(mapping, dates){
   for(i=0; i<dates.length-1; i++){
     for(j=0; j<dates.length-1-i; j++){
       //Use date.js to parse and compare the dates
-      var d2 = Date.parse(dates[j+1]);
-      var d1 = Date.parse(dates[j]);
-      
+      var d2 = Date.parse(dates[j+1].split("       ")[0]);
+      var d1 = Date.parse(dates[j].split("       ")[0]);
       
       //if the above section has an earlier date, swap them (< = descending | > = ascending
       if(d1.compareTo(d2) < 0){

@@ -27,6 +27,13 @@ this.manifest = {
         {
             "tab": "Goals Page",
             "group": "Collapse Settings",
+            "name": "collapse_expand_all",
+            "type": "checkbox",
+            "label": "Create Collapse All and Expand All Buttons"
+        },
+        {
+            "tab": "Goals Page",
+            "group": "Collapse Settings",
             "name": "collapse_plan_desc",
             "type": "checkbox",
             "label": "Collapse Plan Description"
