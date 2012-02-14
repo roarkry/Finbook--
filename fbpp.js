@@ -42,7 +42,7 @@ $(document).ready(function () {
 
       $(planGoalsClass).each(function (i){
         //get the most recent goals date (as a string)
-        var x = $(this).find(".goal-detail-description-heading")[0].innerText.split("Period")[0] + (count++);
+        var x = $(this).find(".goal-detail-description-heading")[0].innerText.split("Period")[0].split("M")[0]+"M-" + (count++);
         keys.push(x);
         goalDates[x] = i;
       });
@@ -301,8 +301,8 @@ function SortTopLevel(mapping, dates){
   for(i=0; i<dates.length-1; i++){
     for(j=0; j<dates.length-1-i; j++){
       //Use date.js to parse and compare the dates
-      var d2 = Date.parse(dates[j+1].split("       ")[0]);
-      var d1 = Date.parse(dates[j].split("       ")[0]);
+      var d2 = Date.parse(dates[j+1].split("-")[0]);
+      var d1 = Date.parse(dates[j].split("-")[0]);
       
       //if the above section has an earlier date, swap them (< = descending | > = ascending
       if(d1.compareTo(d2) < 0){
